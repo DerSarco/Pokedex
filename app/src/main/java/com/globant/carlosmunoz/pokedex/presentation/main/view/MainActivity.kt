@@ -1,4 +1,4 @@
-package com.globant.carlosmunoz.pokedex
+package com.globant.carlosmunoz.pokedex.presentation.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
