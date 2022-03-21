@@ -47,6 +47,10 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //Retrofit
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
 
     //Unit Tests
     testImplementation 'junit:junit:4.+'
