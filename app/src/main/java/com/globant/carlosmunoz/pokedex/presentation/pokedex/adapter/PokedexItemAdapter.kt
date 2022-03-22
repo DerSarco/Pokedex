@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.globant.carlosmunoz.pokedex.databinding.PokedexRowItemBinding
-import com.globant.carlosmunoz.pokedex.entities.Pokemon
+import com.globant.carlosmunoz.pokedex.domain.entities.Result
 
 /*****
  * Project: Pokedex
@@ -13,34 +13,42 @@ import com.globant.carlosmunoz.pokedex.entities.Pokemon
  * Created by Carlos Muñoz on 21-03-22 at 16:49
  ****/
 
-class PokedexItemAdapter(var pokemonList: List<Pokemon>, val listener: (Pokemon) -> Unit) : RecyclerView.Adapter<PokedexItemAdapter.ViewHolder>() {
+class PokedexItemAdapter(
+    var pokemonList: List<Result>,
+    private val listener: (Result) -> Unit,
+) : RecyclerView.Adapter<PokedexItemAdapter.ViewHolder>() {
 
     private lateinit var binding: PokedexRowItemBinding
     private lateinit var context: Context
 
+    fun setNewData(newResultList: List<Result>){
+        pokemonList = newResultList
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        binding = PokedexRowItemBinding.inflate(LayoutInflater.from(context), parent,false)
-        return ViewHolder(binding, listener)
+        binding = PokedexRowItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder){
-            bind(pokemonList[position])
+        with(holder) {
+            bind(pokemonList[position], listener)
         }
     }
 
     override fun getItemCount(): Int = pokemonList.size
 
 
-    inner class ViewHolder( binding: PokedexRowItemBinding, val listener: (Pokemon) -> Unit) : RecyclerView.ViewHolder(binding.root){
-        private val llItem = binding.linearLayout
-        private val tvPokemonName = binding.tvPokemonName
+    inner class ViewHolder(binding: PokedexRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val cardResultItem = binding.cardPokemonItem
+        private val tvResultName = binding.tvPokemonName
 
-        fun bind(pokemon: Pokemon){
-            tvPokemonName.text = pokemon.name
-            llItem.setOnClickListener {
-                listener
+        fun bind(Result: Result, listener: (Result) -> Unit) {
+            tvResultName.text = Result.name.replaceFirstChar { it.uppercase() }
+            cardResultItem.setOnClickListener {
+                listener(Result)
             }
         }
     }
