@@ -60,7 +60,7 @@ class PokedexFragment : Fragment() {
         rowAdapter =
             PokedexItemAdapter(listOf()) { pokemon ->
                 val action =
-                    PokedexFragmentDirections.actionPokedexFragmentToPokemonDetailFragment(pokemon.name)
+                    PokedexFragmentDirections.actionPokedexFragmentToPokemonDetailFragment(pokemon.name, pokemon.id!!.toLong())
                 requireView().findNavController().navigate(action)
             }
     }

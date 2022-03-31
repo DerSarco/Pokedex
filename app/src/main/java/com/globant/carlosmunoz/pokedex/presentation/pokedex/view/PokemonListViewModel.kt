@@ -1,15 +1,11 @@
 package com.globant.carlosmunoz.pokedex.presentation.pokedex.view
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.globant.carlosmunoz.pokedex.data.repositories.PokemonListRepository
 import com.globant.carlosmunoz.pokedex.domain.entities.PokemonList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import java.lang.NullPointerException
 
 class PokemonListViewModel(private val repository: PokemonListRepository) : ViewModel() {
@@ -20,7 +16,11 @@ class PokemonListViewModel(private val repository: PokemonListRepository) : View
     fun getPokemonList() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                pokemonList.postValue(repository.getList().body())
+                val fetchedData = repository.getList().body()
+                fetchedData?.results?.forEachIndexed { index, _ ->
+                    fetchedData.results[index].id = (index + 1).toLong()
+                }
+                pokemonList.postValue(fetchedData)
             }
         }
     }

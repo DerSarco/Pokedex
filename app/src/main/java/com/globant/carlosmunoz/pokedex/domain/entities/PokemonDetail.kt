@@ -18,5 +18,7 @@ data class PokemonDetail(
     @SerializedName("order")
     val order: Int,
     @SerializedName("weight")
-    val weight: Int
+    val weight: Int,
+    @SerializedName("abilities")
+    val abilities: List<Ability>
 )

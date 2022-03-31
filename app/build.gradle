@@ -55,6 +55,10 @@ dependencies {
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
 
+    //coil
+    implementation "io.coil-kt:coil:2.0.0-rc02"
+    implementation "io.coil-kt:coil-svg:2.0.0-rc02"
+
 
     //Unit Tests
     testImplementation 'junit:junit:4.+'

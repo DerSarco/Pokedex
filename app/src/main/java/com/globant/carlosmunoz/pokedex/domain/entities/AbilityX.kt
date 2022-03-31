@@ -1,11 +1,11 @@
 package com.globant.carlosmunoz.pokedex.domain.entities
 
+
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class AbilityX(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
-    val url: String,
-    var id: Long? = null
+    val url: String
 )
